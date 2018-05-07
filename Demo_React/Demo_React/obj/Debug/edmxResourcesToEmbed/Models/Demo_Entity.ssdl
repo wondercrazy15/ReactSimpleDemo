@@ -1,0 +1,217 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="TestingDemoModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Broadcast">
+    <Key>
+      <PropertyRef Name="broadcastid" />
+    </Key>
+    <Property Name="broadcastid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="created" Type="date" />
+    <Property Name="title" Type="nvarchar" MaxLength="50" />
+    <Property Name="maxViewers" Type="int" />
+    <Property Name="voiceEnabled" Type="bit" />
+    <Property Name="positionX" Type="int" />
+    <Property Name="positionY" Type="int" />
+    <Property Name="positionZ" Type="int" />
+    <Property Name="positionW" Type="int" />
+    <Property Name="speedL" Type="int" />
+    <Property Name="speedR" Type="int" />
+    <Property Name="speedLCount" Type="int" />
+    <Property Name="speedRCount" Type="int" />
+    <Property Name="url" Type="nvarchar" MaxLength="256" />
+    <Property Name="imgURL" Type="nvarchar" MaxLength="256" />
+    <Property Name="viewCount" Type="int" />
+    <Property Name="userid" Type="int" />
+    <Property Name="usesSpeed" Type="bit" />
+    <Property Name="usesPosition" Type="bit" />
+    <Property Name="lensType" Type="int" />
+    <Property Name="focalLength" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="sensorResolutionX" Type="int" />
+    <Property Name="sensorResolutionY" Type="int" />
+    <Property Name="lensCenterX" Type="int" Nullable="false" />
+    <Property Name="lensCenterY" Type="int" />
+    <Property Name="imageRadius" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="liveSensorSizeX" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="liveSensorSizeY" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="photosphereSensorSizeX" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="photosphereSensorSizeY" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="liveYRot" Type="int" />
+    <Property Name="rot90" Type="bit" />
+    <Property Name="useTopBottom" Type="bit" />
+  </EntityType>
+  <EntityType Name="Message">
+    <Key>
+      <PropertyRef Name="messageid" />
+    </Key>
+    <Property Name="messageid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="created" Type="date" />
+    <Property Name="type" Type="nvarchar" MaxLength="50" />
+    <Property Name="text" Type="nvarchar(max)" />
+    <Property Name="broadcastid" Type="int" />
+    <Property Name="videoid" Type="int" />
+    <Property Name="userid" Type="int" />
+  </EntityType>
+  <EntityType Name="Rating">
+    <Key>
+      <PropertyRef Name="rateid" />
+    </Key>
+    <Property Name="rateid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="created" Type="date" />
+    <Property Name="value" Type="int" />
+    <Property Name="videoid" Type="int" />
+    <Property Name="userid" Type="int" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="firstName" Type="nvarchar" MaxLength="50" />
+    <Property Name="lastName" Type="nvarchar" MaxLength="50" />
+    <Property Name="username" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="email" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="password" Type="nvarchar(max)" />
+    <Property Name="salt" Type="nvarchar(max)" />
+    <Property Name="profileImageURL" Type="nvarchar(max)" />
+    <Property Name="provider" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="roles" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="updated" Type="date" />
+    <Property Name="created" Type="date" />
+    <Property Name="resetPasswordToken" Type="nvarchar" MaxLength="200" />
+    <Property Name="resetPasswordExpires" Type="date" />
+    <Property Name="isBanned" Type="bit" />
+  </EntityType>
+  <EntityType Name="Video">
+    <Key>
+      <PropertyRef Name="videoid" />
+    </Key>
+    <Property Name="videoid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="created" Type="date" />
+    <Property Name="title" Type="nvarchar" MaxLength="50" />
+    <Property Name="url" Type="nvarchar" MaxLength="256" />
+    <Property Name="image" Type="nvarchar" MaxLength="256" />
+    <Property Name="isImage3D" Type="bit" />
+    <Property Name="content" Type="nvarchar(max)" />
+    <Property Name="viewCount" Type="int" />
+    <Property Name="rating" Type="int" />
+    <Property Name="userid" Type="int" />
+  </EntityType>
+  <Association Name="FK_Broadcast_User">
+    <End Role="User" Type="Self.User" Multiplicity="0..1" />
+    <End Role="Broadcast" Type="Self.Broadcast" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Broadcast">
+        <PropertyRef Name="userid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Message_Broadcast">
+    <End Role="Broadcast" Type="Self.Broadcast" Multiplicity="0..1" />
+    <End Role="Message" Type="Self.Message" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Broadcast">
+        <PropertyRef Name="broadcastid" />
+      </Principal>
+      <Dependent Role="Message">
+        <PropertyRef Name="broadcastid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Message_User">
+    <End Role="User" Type="Self.User" Multiplicity="0..1" />
+    <End Role="Message" Type="Self.Message" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Message">
+        <PropertyRef Name="userid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Message_Video">
+    <End Role="Video" Type="Self.Video" Multiplicity="0..1" />
+    <End Role="Message" Type="Self.Message" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Video">
+        <PropertyRef Name="videoid" />
+      </Principal>
+      <Dependent Role="Message">
+        <PropertyRef Name="videoid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Rating_Rating">
+    <End Role="Video" Type="Self.Video" Multiplicity="0..1" />
+    <End Role="Rating" Type="Self.Rating" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Video">
+        <PropertyRef Name="videoid" />
+      </Principal>
+      <Dependent Role="Rating">
+        <PropertyRef Name="videoid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Rating_User">
+    <End Role="User" Type="Self.User" Multiplicity="0..1" />
+    <End Role="Rating" Type="Self.Rating" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Rating">
+        <PropertyRef Name="userid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Video_User">
+    <End Role="User" Type="Self.User" Multiplicity="0..1" />
+    <End Role="Video" Type="Self.Video" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Video">
+        <PropertyRef Name="userid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="TestingDemoModelStoreContainer">
+    <EntitySet Name="Broadcast" EntityType="Self.Broadcast" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Message" EntityType="Self.Message" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Rating" EntityType="Self.Rating" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Video" EntityType="Self.Video" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Broadcast_User" Association="Self.FK_Broadcast_User">
+      <End Role="User" EntitySet="User" />
+      <End Role="Broadcast" EntitySet="Broadcast" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Message_Broadcast" Association="Self.FK_Message_Broadcast">
+      <End Role="Broadcast" EntitySet="Broadcast" />
+      <End Role="Message" EntitySet="Message" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Message_User" Association="Self.FK_Message_User">
+      <End Role="User" EntitySet="User" />
+      <End Role="Message" EntitySet="Message" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Message_Video" Association="Self.FK_Message_Video">
+      <End Role="Video" EntitySet="Video" />
+      <End Role="Message" EntitySet="Message" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Rating_Rating" Association="Self.FK_Rating_Rating">
+      <End Role="Video" EntitySet="Video" />
+      <End Role="Rating" EntitySet="Rating" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Rating_User" Association="Self.FK_Rating_User">
+      <End Role="User" EntitySet="User" />
+      <End Role="Rating" EntitySet="Rating" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Video_User" Association="Self.FK_Video_User">
+      <End Role="User" EntitySet="User" />
+      <End Role="Video" EntitySet="Video" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

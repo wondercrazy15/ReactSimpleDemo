@@ -1,0 +1,231 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="TestingDemoModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Broadcast">
+    <Key>
+      <PropertyRef Name="broadcastid" />
+    </Key>
+    <Property Name="broadcastid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="created" Type="DateTime" Precision="0" />
+    <Property Name="title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="maxViewers" Type="Int32" />
+    <Property Name="voiceEnabled" Type="Boolean" />
+    <Property Name="positionX" Type="Int32" />
+    <Property Name="positionY" Type="Int32" />
+    <Property Name="positionZ" Type="Int32" />
+    <Property Name="positionW" Type="Int32" />
+    <Property Name="speedL" Type="Int32" />
+    <Property Name="speedR" Type="Int32" />
+    <Property Name="speedLCount" Type="Int32" />
+    <Property Name="speedRCount" Type="Int32" />
+    <Property Name="url" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+    <Property Name="imgURL" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+    <Property Name="viewCount" Type="Int32" />
+    <Property Name="userid" Type="Int32" />
+    <Property Name="usesSpeed" Type="Boolean" />
+    <Property Name="usesPosition" Type="Boolean" />
+    <Property Name="lensType" Type="Int32" />
+    <Property Name="focalLength" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="sensorResolutionX" Type="Int32" />
+    <Property Name="sensorResolutionY" Type="Int32" />
+    <Property Name="lensCenterX" Type="Int32" Nullable="false" />
+    <Property Name="lensCenterY" Type="Int32" />
+    <Property Name="imageRadius" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="liveSensorSizeX" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="liveSensorSizeY" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="photosphereSensorSizeX" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="photosphereSensorSizeY" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="liveYRot" Type="Int32" />
+    <Property Name="rot90" Type="Boolean" />
+    <Property Name="useTopBottom" Type="Boolean" />
+    <NavigationProperty Name="User" Relationship="Self.FK_Broadcast_User" FromRole="Broadcast" ToRole="User" />
+    <NavigationProperty Name="Messages" Relationship="Self.FK_Message_Broadcast" FromRole="Broadcast" ToRole="Message" />
+  </EntityType>
+  <EntityType Name="Message">
+    <Key>
+      <PropertyRef Name="messageid" />
+    </Key>
+    <Property Name="messageid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="created" Type="DateTime" Precision="0" />
+    <Property Name="type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="text" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="broadcastid" Type="Int32" />
+    <Property Name="videoid" Type="Int32" />
+    <Property Name="userid" Type="Int32" />
+    <NavigationProperty Name="Broadcast" Relationship="Self.FK_Message_Broadcast" FromRole="Message" ToRole="Broadcast" />
+    <NavigationProperty Name="User" Relationship="Self.FK_Message_User" FromRole="Message" ToRole="User" />
+    <NavigationProperty Name="Video" Relationship="Self.FK_Message_Video" FromRole="Message" ToRole="Video" />
+  </EntityType>
+  <EntityType Name="Rating">
+    <Key>
+      <PropertyRef Name="rateid" />
+    </Key>
+    <Property Name="rateid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="created" Type="DateTime" Precision="0" />
+    <Property Name="value" Type="Int32" />
+    <Property Name="videoid" Type="Int32" />
+    <Property Name="userid" Type="Int32" />
+    <NavigationProperty Name="Video" Relationship="Self.FK_Rating_Rating" FromRole="Rating" ToRole="Video" />
+    <NavigationProperty Name="User" Relationship="Self.FK_Rating_User" FromRole="Rating" ToRole="User" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="firstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="lastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="username" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="password" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="salt" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="profileImageURL" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="provider" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="roles" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="updated" Type="DateTime" Precision="0" />
+    <Property Name="created" Type="DateTime" Precision="0" />
+    <Property Name="resetPasswordToken" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="resetPasswordExpires" Type="DateTime" Precision="0" />
+    <Property Name="isBanned" Type="Boolean" />
+    <NavigationProperty Name="Broadcasts" Relationship="Self.FK_Broadcast_User" FromRole="User" ToRole="Broadcast" />
+    <NavigationProperty Name="Messages" Relationship="Self.FK_Message_User" FromRole="User" ToRole="Message" />
+    <NavigationProperty Name="Ratings" Relationship="Self.FK_Rating_User" FromRole="User" ToRole="Rating" />
+    <NavigationProperty Name="Videos" Relationship="Self.FK_Video_User" FromRole="User" ToRole="Video" />
+  </EntityType>
+  <EntityType Name="Video">
+    <Key>
+      <PropertyRef Name="videoid" />
+    </Key>
+    <Property Name="videoid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="created" Type="DateTime" Precision="0" />
+    <Property Name="title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="url" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+    <Property Name="image" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+    <Property Name="isImage3D" Type="Boolean" />
+    <Property Name="content" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="viewCount" Type="Int32" />
+    <Property Name="rating" Type="Int32" />
+    <Property Name="userid" Type="Int32" />
+    <NavigationProperty Name="Messages" Relationship="Self.FK_Message_Video" FromRole="Video" ToRole="Message" />
+    <NavigationProperty Name="Ratings" Relationship="Self.FK_Rating_Rating" FromRole="Video" ToRole="Rating" />
+    <NavigationProperty Name="User" Relationship="Self.FK_Video_User" FromRole="Video" ToRole="User" />
+  </EntityType>
+  <Association Name="FK_Broadcast_User">
+    <End Role="User" Type="Self.User" Multiplicity="0..1" />
+    <End Role="Broadcast" Type="Self.Broadcast" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Broadcast">
+        <PropertyRef Name="userid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Message_Broadcast">
+    <End Role="Broadcast" Type="Self.Broadcast" Multiplicity="0..1" />
+    <End Role="Message" Type="Self.Message" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Broadcast">
+        <PropertyRef Name="broadcastid" />
+      </Principal>
+      <Dependent Role="Message">
+        <PropertyRef Name="broadcastid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Message_User">
+    <End Role="User" Type="Self.User" Multiplicity="0..1" />
+    <End Role="Message" Type="Self.Message" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Message">
+        <PropertyRef Name="userid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Message_Video">
+    <End Role="Video" Type="Self.Video" Multiplicity="0..1" />
+    <End Role="Message" Type="Self.Message" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Video">
+        <PropertyRef Name="videoid" />
+      </Principal>
+      <Dependent Role="Message">
+        <PropertyRef Name="videoid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Rating_Rating">
+    <End Role="Video" Type="Self.Video" Multiplicity="0..1" />
+    <End Role="Rating" Type="Self.Rating" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Video">
+        <PropertyRef Name="videoid" />
+      </Principal>
+      <Dependent Role="Rating">
+        <PropertyRef Name="videoid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Rating_User">
+    <End Role="User" Type="Self.User" Multiplicity="0..1" />
+    <End Role="Rating" Type="Self.Rating" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Rating">
+        <PropertyRef Name="userid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Video_User">
+    <End Role="User" Type="Self.User" Multiplicity="0..1" />
+    <End Role="Video" Type="Self.Video" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Video">
+        <PropertyRef Name="userid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="mongooseEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Broadcasts" EntityType="Self.Broadcast" />
+    <EntitySet Name="Messages" EntityType="Self.Message" />
+    <EntitySet Name="Ratings" EntityType="Self.Rating" />
+    <EntitySet Name="Users" EntityType="Self.User" />
+    <EntitySet Name="Videos" EntityType="Self.Video" />
+    <AssociationSet Name="FK_Broadcast_User" Association="Self.FK_Broadcast_User">
+      <End Role="User" EntitySet="Users" />
+      <End Role="Broadcast" EntitySet="Broadcasts" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Message_Broadcast" Association="Self.FK_Message_Broadcast">
+      <End Role="Broadcast" EntitySet="Broadcasts" />
+      <End Role="Message" EntitySet="Messages" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Message_User" Association="Self.FK_Message_User">
+      <End Role="User" EntitySet="Users" />
+      <End Role="Message" EntitySet="Messages" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Message_Video" Association="Self.FK_Message_Video">
+      <End Role="Video" EntitySet="Videos" />
+      <End Role="Message" EntitySet="Messages" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Rating_Rating" Association="Self.FK_Rating_Rating">
+      <End Role="Video" EntitySet="Videos" />
+      <End Role="Rating" EntitySet="Ratings" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Rating_User" Association="Self.FK_Rating_User">
+      <End Role="User" EntitySet="Users" />
+      <End Role="Rating" EntitySet="Ratings" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Video_User" Association="Self.FK_Video_User">
+      <End Role="User" EntitySet="Users" />
+      <End Role="Video" EntitySet="Videos" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

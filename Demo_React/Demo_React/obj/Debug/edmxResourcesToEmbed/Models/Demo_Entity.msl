@@ -1,0 +1,105 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="TestingDemoModelStoreContainer" CdmEntityContainer="mongooseEntities">
+    <EntitySetMapping Name="Broadcasts">
+      <EntityTypeMapping TypeName="TestingDemoModel.Broadcast">
+        <MappingFragment StoreEntitySet="Broadcast">
+          <ScalarProperty Name="broadcastid" ColumnName="broadcastid" />
+          <ScalarProperty Name="created" ColumnName="created" />
+          <ScalarProperty Name="title" ColumnName="title" />
+          <ScalarProperty Name="maxViewers" ColumnName="maxViewers" />
+          <ScalarProperty Name="voiceEnabled" ColumnName="voiceEnabled" />
+          <ScalarProperty Name="positionX" ColumnName="positionX" />
+          <ScalarProperty Name="positionY" ColumnName="positionY" />
+          <ScalarProperty Name="positionZ" ColumnName="positionZ" />
+          <ScalarProperty Name="positionW" ColumnName="positionW" />
+          <ScalarProperty Name="speedL" ColumnName="speedL" />
+          <ScalarProperty Name="speedR" ColumnName="speedR" />
+          <ScalarProperty Name="speedLCount" ColumnName="speedLCount" />
+          <ScalarProperty Name="speedRCount" ColumnName="speedRCount" />
+          <ScalarProperty Name="url" ColumnName="url" />
+          <ScalarProperty Name="imgURL" ColumnName="imgURL" />
+          <ScalarProperty Name="viewCount" ColumnName="viewCount" />
+          <ScalarProperty Name="userid" ColumnName="userid" />
+          <ScalarProperty Name="usesSpeed" ColumnName="usesSpeed" />
+          <ScalarProperty Name="usesPosition" ColumnName="usesPosition" />
+          <ScalarProperty Name="lensType" ColumnName="lensType" />
+          <ScalarProperty Name="focalLength" ColumnName="focalLength" />
+          <ScalarProperty Name="sensorResolutionX" ColumnName="sensorResolutionX" />
+          <ScalarProperty Name="sensorResolutionY" ColumnName="sensorResolutionY" />
+          <ScalarProperty Name="lensCenterX" ColumnName="lensCenterX" />
+          <ScalarProperty Name="lensCenterY" ColumnName="lensCenterY" />
+          <ScalarProperty Name="imageRadius" ColumnName="imageRadius" />
+          <ScalarProperty Name="liveSensorSizeX" ColumnName="liveSensorSizeX" />
+          <ScalarProperty Name="liveSensorSizeY" ColumnName="liveSensorSizeY" />
+          <ScalarProperty Name="photosphereSensorSizeX" ColumnName="photosphereSensorSizeX" />
+          <ScalarProperty Name="photosphereSensorSizeY" ColumnName="photosphereSensorSizeY" />
+          <ScalarProperty Name="liveYRot" ColumnName="liveYRot" />
+          <ScalarProperty Name="rot90" ColumnName="rot90" />
+          <ScalarProperty Name="useTopBottom" ColumnName="useTopBottom" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Messages">
+      <EntityTypeMapping TypeName="TestingDemoModel.Message">
+        <MappingFragment StoreEntitySet="Message">
+          <ScalarProperty Name="messageid" ColumnName="messageid" />
+          <ScalarProperty Name="created" ColumnName="created" />
+          <ScalarProperty Name="type" ColumnName="type" />
+          <ScalarProperty Name="text" ColumnName="text" />
+          <ScalarProperty Name="broadcastid" ColumnName="broadcastid" />
+          <ScalarProperty Name="videoid" ColumnName="videoid" />
+          <ScalarProperty Name="userid" ColumnName="userid" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Ratings">
+      <EntityTypeMapping TypeName="TestingDemoModel.Rating">
+        <MappingFragment StoreEntitySet="Rating">
+          <ScalarProperty Name="rateid" ColumnName="rateid" />
+          <ScalarProperty Name="created" ColumnName="created" />
+          <ScalarProperty Name="value" ColumnName="value" />
+          <ScalarProperty Name="videoid" ColumnName="videoid" />
+          <ScalarProperty Name="userid" ColumnName="userid" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Users">
+      <EntityTypeMapping TypeName="TestingDemoModel.User">
+        <MappingFragment StoreEntitySet="User">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="firstName" ColumnName="firstName" />
+          <ScalarProperty Name="lastName" ColumnName="lastName" />
+          <ScalarProperty Name="username" ColumnName="username" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="password" ColumnName="password" />
+          <ScalarProperty Name="salt" ColumnName="salt" />
+          <ScalarProperty Name="profileImageURL" ColumnName="profileImageURL" />
+          <ScalarProperty Name="provider" ColumnName="provider" />
+          <ScalarProperty Name="roles" ColumnName="roles" />
+          <ScalarProperty Name="updated" ColumnName="updated" />
+          <ScalarProperty Name="created" ColumnName="created" />
+          <ScalarProperty Name="resetPasswordToken" ColumnName="resetPasswordToken" />
+          <ScalarProperty Name="resetPasswordExpires" ColumnName="resetPasswordExpires" />
+          <ScalarProperty Name="isBanned" ColumnName="isBanned" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Videos">
+      <EntityTypeMapping TypeName="TestingDemoModel.Video">
+        <MappingFragment StoreEntitySet="Video">
+          <ScalarProperty Name="videoid" ColumnName="videoid" />
+          <ScalarProperty Name="created" ColumnName="created" />
+          <ScalarProperty Name="title" ColumnName="title" />
+          <ScalarProperty Name="url" ColumnName="url" />
+          <ScalarProperty Name="image" ColumnName="image" />
+          <ScalarProperty Name="isImage3D" ColumnName="isImage3D" />
+          <ScalarProperty Name="content" ColumnName="content" />
+          <ScalarProperty Name="viewCount" ColumnName="viewCount" />
+          <ScalarProperty Name="rating" ColumnName="rating" />
+          <ScalarProperty Name="userid" ColumnName="userid" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
